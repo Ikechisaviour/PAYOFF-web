@@ -11,7 +11,7 @@ export function Timer() {
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const startTimer = (
-    countDownDate: Date = moment("01-09-2024", "DD-MM-YYYY").toDate()
+    countDownDate: Date = moment("01-01-2025", "DD-MM-YYYY").toDate()
   ) => {
     intervalRef.current = setInterval(() => {
       const now = moment().toDate();
