@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 };
 export default function Card() {
   return (
-    <section className="font-inter w-full mt-5 border bg-white p-5">
+    <section className="font-inter w-full mt-5 border h-full bg-white p-5">
       cards
     </section>
   );
