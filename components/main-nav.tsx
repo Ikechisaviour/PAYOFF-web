@@ -40,7 +40,9 @@ export function MainNav({ items, children, image }: MainNavProps) {
         <Collapsible />
       </div>
 
-      <Search />
+      <div className="w-full md:max-w-[200px] lg:max-w-[521px] max-w-[70%]">
+        <Search />
+      </div>
 
       <div className=" flex items-center justify-end gap-3 md:gap-5 ">
         <Link href={"/dashboard/profile"} className="  hidden md:inline ">

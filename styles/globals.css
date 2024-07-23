@@ -32,6 +32,8 @@
     --bg: #f2f3f5;
     --background: #f2f3f5;
     --foreground: hsl(222.2 84% 4.9%);
+    --status: #41920D;
+    --status-background: #EDFFE2;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;

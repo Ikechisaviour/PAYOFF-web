@@ -43,6 +43,10 @@ const config = {
           active: "var(--dashboard-link-active)",
           activeBg: "var(--dashboard-link-active-background)",
         },
+        status: {
+          DEFAULT: "var(--status)",
+          background: "var(--status-background)",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

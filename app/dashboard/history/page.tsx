@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 export default function History() {
   return (
-    <section className="font-inter w-full mt-5 border bg-white p-5">
+    <section className="font-inter w-full h-full mt-5 border bg-white p-5">
       <HistoryTable />
     </section>
   );

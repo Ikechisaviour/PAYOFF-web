@@ -1,11 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  CaretSortIcon,
-  ChevronDownIcon,
-  DotsHorizontalIcon,
-} from "@radix-ui/react-icons";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -20,17 +16,12 @@ import {
 } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -43,135 +34,166 @@ import { APP_KEYS } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { ISortTable } from "@/types";
 import { Icons } from "./icons";
+import { Search } from "./searchbar";
+import { motion, AnimatePresence } from "framer-motion";
+import { format, parseISO } from "date-fns";
+import { Transaction } from "./transaction";
 
-const data: Payment[] = [
+export const data: Transaction[] = [
   {
-    id: "m5gr84i9",
-    amount: 316,
-    status: "success",
-    email: "ken99@yahoo.com",
+    id: "T001",
+    date: "2024-07-15T09:23:54Z",
+    description: "Grocery shopping",
+    channel: "Credit Card",
+    amount: 85.5,
+    status: "complete",
   },
   {
-    id: "3u1reuv4",
-    amount: 242,
-    status: "success",
-    email: "Abe45@gmail.com",
-  },
-  {
-    id: "derv1ws0",
-    amount: 837,
+    id: "T002",
+    date: "2024-07-16T14:30:00Z",
+    description: "Online subscription",
+    channel: "PayPal",
+    amount: 12.99,
     status: "processing",
-    email: "Monserrat44@gmail.com",
   },
   {
-    id: "5kma53ae",
-    amount: 874,
-    status: "success",
-    email: "Silas22@gmail.com",
+    id: "T003",
+    date: "2024-07-17T18:45:12Z",
+    description: "Gas station",
+    channel: "Debit Card",
+    amount: 45.0,
+    status: "complete",
   },
   {
-    id: "bhqecj4p",
-    amount: 721,
+    id: "T004",
+    date: "2024-07-18T20:15:30Z",
+    description: "Restaurant dinner",
+    channel: "Credit Card",
+    amount: 78.25,
+    status: "complete",
+  },
+  {
+    id: "T005",
+    date: "2024-07-19T11:00:00Z",
+    description: "Mobile phone bill",
+    channel: "Bank Transfer",
+    amount: 55.0,
+    status: "processing",
+  },
+  {
+    id: "T006",
+    date: "2024-07-20T16:20:45Z",
+    description: "Online shopping",
+    channel: "Credit Card",
+    amount: 129.99,
     status: "failed",
-    email: "carmella@hotmail.com",
+  },
+  {
+    id: "T007",
+    date: "2024-07-21T22:10:18Z",
+    description: "Taxi ride",
+    channel: "Digital Wallet",
+    amount: 22.5,
+    status: "complete",
+  },
+  {
+    id: "T008",
+    date: "2024-07-22T08:00:00Z",
+    description: "Gym membership",
+    channel: "Bank Transfer",
+    amount: 50.0,
+    status: "incomplete",
+  },
+  {
+    id: "T009",
+    date: "2024-07-23T10:30:25Z",
+    description: "Coffee shop",
+    channel: "Debit Card",
+    amount: 4.75,
+    status: "complete",
+  },
+  {
+    id: "T010",
+    date: "2024-07-24T19:45:00Z",
+    description: "Electric bill",
+    channel: "Bank Transfer",
+    amount: 95.0,
+    status: "processing",
   },
 ];
 
-export type Payment = {
+export type Transaction = {
   id: string;
+  date: string;
+  description: string;
+  channel: string;
   amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  email: string;
+  status: "complete" | "processing" | "incomplete" | "failed";
 };
 
-export const columns: ColumnDef<Payment>[] = [
+export const columns: ColumnDef<Transaction>[] = [
   {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
+    accessorKey: "date",
+    header: () => (
+      <h3 className="text-[#989898] text-xs lg:text-sm font-normal">Period</h3>
     ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <CaretSortIcon className="ml-2 h-4 w-4" />
-        </Button>
-      );
+    cell: ({ row }) => {
+      const date = format(parseISO(row.original.date), "dd/MM/yyyy hh:mma");
+      return <div className="text-nowrap">{date}</div>;
     },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
+  },
+  {
+    accessorKey: "description",
+    header: () => (
+      <h3 className="text-[#989898] text-xs lg:text-sm font-normal">
+        Description
+      </h3>
+    ),
+    cell: ({ row }) => (
+      <div className="text-nowrap">{row.getValue("description")}</div>
+    ),
+  },
+
+  {
+    accessorKey: "channel",
+
+    header: () => (
+      <h3 className="text-[#989898] text-xs lg:text-sm font-normal">Channel</h3>
+    ),
+    cell: ({ row }) => (
+      <div className="text-nowrap">{row.getValue("channel")}</div>
+    ),
   },
   {
     accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    header: () => (
+      <h3 className="text-[#989898] text-xs lg:text-sm font-normal">Amount</h3>
+    ),
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"));
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("en-US", {
+      const formatted = new Intl.NumberFormat("en-NG", {
         style: "currency",
-        currency: "USD",
+        currency: "NGN",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
       }).format(amount);
 
-      return <div className="text-right font-medium">{formatted}</div>;
+      return <div className="">{formatted}</div>;
     },
   },
   {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              Copy payment ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    accessorKey: "status",
+    header: () => (
+      <h3 className="text-[#989898] text-xs lg:text-sm font-normal">Status</h3>
+    ),
+    cell: ({ row }) => (
+      <div className="flex">
+        <span className="capitalize text-xs bg-status-background text-status relative inline-flex items-center gap-2 rounded-2xl px-2 p-1">
+          <span className="w-[6px] h-[6px] bg-status rounded-full"></span>
+          {row.getValue("status")}
+        </span>
+      </div>
+    ),
   },
 ];
 
@@ -188,6 +210,17 @@ export function HistoryTable() {
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+
+  const [openSheet, setOpenSheet] = React.useState<boolean>(false);
+  const toggleSheet = () => setOpenSheet((prev) => !prev);
+
+  const [currentTransaction, setCurrentTransaction] = React.useState("");
+  const handleTransaction = (_id: string) => setCurrentTransaction(_id);
+
+  const handlePopup = (_id: string) => {
+    toggleSheet();
+    handleTransaction(_id);
+  }
 
   const table = useReactTable({
     data,
@@ -210,7 +243,7 @@ export function HistoryTable() {
 
   return (
     <div className="w-full">
-      <div className="flex items-center space-x-3 flex-wrap  justify-start">
+      <div className="flex items-center gap-3 flex-wrap  justify-start">
         <h3 className="scroll-m-20 text-xs text-[#767575] font-normal tracking-tight ">
           Filter By:
         </h3>
@@ -295,78 +328,62 @@ export function HistoryTable() {
             ))}
           </DropdownMenuContent>
         </DropdownMenu>
-        <ul className="flex items-center space-x-3 ">
-          {sort.dateLabel?.map((label) => (
-            <li
-              key={label}
-              className="flex items-center h-[26px] border rounded-[15px] text-xs p-2 bg-[#F1FFE8] text-[#41920D]"
-            >
-              <Icons.sort className="w-[10px] h-[10px] mr-2" />
-              {label}{" "}
-              <button
-                className="p-0"
-                onClick={() => {
-                  const item = APP_KEYS.DATE_TYPES.find(
-                    (item) => item.label === label
-                  );
-                  if (!item) return;
-                  setSort((prev) => {
-                    const date =
-                      prev.date?.filter((date) => date !== item.value) || [];
-                    const dateLabel =
-                      prev.dateLabel?.filter((label) => label !== item.label) ||
-                      [];
-                    return {
-                      ...prev,
-                      date,
-                      dateLabel,
-                    };
-                  });
-                }}
+        <ul className="flex items-center gap-3 flex-wrap">
+          <AnimatePresence>
+            {sort.dateLabel?.map((label) => (
+              <motion.li
+                key={label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center h-[26px] border rounded-[15px] text-xs p-2 bg-[#F1FFE8] text-[#41920D] cursor-pointer hover:opacity-95"
               >
-                <Icons.close className="w-[10px] h-[10px] ml-2" />
-              </button>{" "}
-            </li>
-          ))}
+                <Icons.sort className="w-[10px] h-[10px] mr-2" />
+                {label}{" "}
+                <motion.button
+                  className="p-0"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => {
+                    const item = APP_KEYS.DATE_TYPES.find(
+                      (item) => item.label === label
+                    );
+                    if (!item) return;
+                    setSort((prev) => {
+                      const date =
+                        prev.date?.filter((date) => date !== item.value) || [];
+                      const dateLabel =
+                        prev.dateLabel?.filter(
+                          (label) => label !== item.label
+                        ) || [];
+                      return {
+                        ...prev,
+                        date,
+                        dateLabel,
+                      };
+                    });
+                  }}
+                >
+                  <Icons.close className="w-[10px] h-[10px] ml-2" />
+                </motion.button>{" "}
+              </motion.li>
+            ))}
+          </AnimatePresence>
         </ul>
-      </div>
-      <div className="flex items-center py-4">
-        <Input
-          placeholder="Filter emails..."
-          value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn("email")?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
+        <Button
+          variant="outline"
+          className=" bg-transparent text-xs lg:text-sm w-full md:w-auto"
+        >
+          <Icons.cloudDownload className="mr-2 h-4 w-4 " />
+          Download Statement
+        </Button>
+        <Search
+          className="w-full md:max-w-sm"
+          placeHolder="Search transactions history..."
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDownIcon className="ml-2 h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter((column) => column.getCanHide())
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                );
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
       </div>
-      <div className="rounded-md border">
+      <div className=" mt-5">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -392,6 +409,8 @@ export function HistoryTable() {
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="cursor-pointer"
+                  onClick={() => handlePopup(row.original.id)}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -440,6 +459,13 @@ export function HistoryTable() {
           </Button>
         </div>
       </div>
+      {currentTransaction && (
+        <Transaction
+          open={openSheet}
+          transactionId={currentTransaction}
+          onOpenChange={toggleSheet}
+        />
+      )}
     </div>
   );
 }
