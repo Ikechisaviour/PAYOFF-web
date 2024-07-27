@@ -1,4 +1,5 @@
-import * as  dateFns from "date-fns";
+import * as dateFns from "date-fns";
+import { Visa, Mastercard, Verve } from "@/assets";
 
 // Api Endpoints
 export const ENDPOINTS = {
@@ -97,4 +98,18 @@ export const APP_KEYS = {
     { label: "Yesterday", value: dateFns.subDays(new Date(), 1) },
     { label: "Last week", value: dateFns.subDays(new Date(), 7) },
   ],
+  CARD_IMAGES: {
+    visa: {
+      bg: "#5E44E5",
+      logo: Visa,
+    },
+    mastercard: {
+      bg: "#4DBA7F",
+      logo: Mastercard,
+    },
+    verve: {
+      bg: "#0072F5",
+      logo: Verve,
+    },
+  },
 };

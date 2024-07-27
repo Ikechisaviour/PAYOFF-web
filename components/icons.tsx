@@ -1,6 +1,8 @@
 import {
   AlertTriangle,
   ArrowRight,
+  ArrowUp,
+  ArrowDown,
   BadgeDollarSign,
   BatteryCharging,
   Building,
@@ -24,6 +26,8 @@ import {
   LucideProps,
   Moon,
   MoreVertical,
+  MoveDown,
+  MoveUp, 
   Pizza,
   Plus,
   Plug,
@@ -61,6 +65,8 @@ import {
 export type Icon = typeof LucideIcon
 
 export const Icons = {
+  arrowUp: ArrowUp,
+  arrowDown: ArrowDown,
   lifeBuoy:LifeBuoy,
   bolt: Bolt,
   banknote: Banknote,
@@ -102,6 +108,8 @@ export const Icons = {
   pizza: Pizza,
   sun: SunMedium,
   moon: Moon,
+   moveDown:MoveDown,
+  moveUp:MoveUp, 
   laptop: Laptop,
   logout: LogOut,
   menu: Menu,

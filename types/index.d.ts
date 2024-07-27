@@ -68,3 +68,14 @@ export type ISortTable = {
   date: Array<Date>;
   dateLabel: Array<string>;
 };
+
+export type Card = {
+  _id: string;
+  type: "visa" | "mastercard" | "verve";
+  cardNumber: string;
+  name: string;
+  expiryDate: string;
+  cvv: string;
+  balance: string;
+  status: "active" | "inactive" | "blocked";
+}

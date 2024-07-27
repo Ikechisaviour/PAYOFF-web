@@ -16,6 +16,9 @@ import Carousel1 from "./Rectangle 7.png";
 import Carousel2 from "./Rectangle 8.png";
 import Carousel3 from "./Rectangle 9.png";
 import Carousel4 from "./Rectangle 10.png";
+import Visa from "./visa.png";
+import Mastercard from "./mastercard.png";
+import Verve from './verve.png';
 // import Bag from "./bag.png";
 
 export {
@@ -38,4 +41,7 @@ export {
   Carousel2,
   Carousel3,
   Carousel4,
+  Visa,
+  Mastercard,
+  Verve,
 };

@@ -1,4 +1,4 @@
-import { DashboardConfig } from "@/types";
+import { DashboardConfig, Card } from "@/types";
 
 export const dashboardConfig: DashboardConfig = {
   landingNav: [
@@ -79,3 +79,37 @@ export const dashboardConfig: DashboardConfig = {
     },
   ],
 };
+
+
+export const cardItems: Card[] = [
+  {
+    _id: "1",
+    type: "visa",
+    cardNumber: "4532 7598 2134 5678",
+    name: "John Doe",
+    expiryDate: "05/27",
+    cvv: "123",
+    balance: "5,234.50",
+    status: "active",
+  },
+  {
+    _id: "2",
+    type: "mastercard",
+    cardNumber: "5412 7534 9876 1234",
+    name: "Jane Smith",
+    expiryDate: "11/25",
+    cvv: "456",
+    balance: "10,789.75",
+    status: "inactive",
+  },
+  {
+    _id: "3",
+    type: "verve",
+    cardNumber: "5061 2345 6789 0123",
+    name: "Ade Olanrewaju",
+    expiryDate: "09/26",
+    cvv: "789",
+    balance: "3,567.20",
+    status: "blocked",
+  },
+];
