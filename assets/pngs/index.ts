@@ -21,7 +21,7 @@ import Mastercard from "./mastercard.png";
 import Verve from './verve.png';
 import AvatarGroup from "./Avatar group.png";
 // import Bag from "./bag.png";
-
+import CardLinkImage from "./cardLink.png";
 export {
   // Bag,
   Testiomonial1,
@@ -46,4 +46,5 @@ export {
   Mastercard,
   Verve,
   AvatarGroup,
+  CardLinkImage,
 };

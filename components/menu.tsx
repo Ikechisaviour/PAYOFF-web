@@ -44,8 +44,8 @@ export function Menu({ icon, name, isActive = false, onClick }: IProps) {
         <Button
           variant="ghost"
           className={cn(
-            " bg-[#F8FFF1] text-[#388903] w-[44px] h-[44px] p-0 hover:bg-[#388903] hover:text-white",
-            isActive && "bg-[#388903] text-white"
+            " bg-[#F8FFF1] text-secondary-green w-[44px] h-[44px] p-0 hover:bg-secondary-green hover:text-white",
+            isActive && "bg-secondary-green text-white"
           )}
           onClick={onClick}
         >

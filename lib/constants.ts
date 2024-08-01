@@ -112,4 +112,5 @@ export const APP_KEYS = {
       logo: Verve,
     },
   },
+  SHOW_BALANCE: "SHOW_BALANCE",
 };
