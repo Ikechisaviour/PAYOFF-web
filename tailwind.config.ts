@@ -76,6 +76,10 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        tab: {
+          DEFAULT: "var(--tab-green)",
+          gray: "var(--tab-gray)"
+        }
       },
       borderRadius: {
         lg: "var(--radius)",

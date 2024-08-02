@@ -248,8 +248,8 @@ export function MiniTable() {
         </h3>
 
         <div className=" rounded-lg mt-3 border">
-          <div className="flex items-center gap-3 flex-wrap  justify-between p-5">
-            <div className="flex items-center gap-3 flex-wrap  justify-start">
+          <div className="flex items-center gap-5 md:gap-3 flex-wrap  justify-between p-5">
+            <div className="flex items-center gap-5 md:gap-3 flex-wrap  justify-start">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
