@@ -22,6 +22,8 @@ import Verve from './verve.png';
 import AvatarGroup from "./Avatar group.png";
 // import Bag from "./bag.png";
 import CardLinkImage from "./cardLink.png";
+import MiniVisaLogo from "./visa-logo.png";
+import MiniMastercardLogo from './Mastercard-logo.png';
 export {
   // Bag,
   Testiomonial1,
@@ -47,4 +49,6 @@ export {
   Verve,
   AvatarGroup,
   CardLinkImage,
+  MiniVisaLogo,
+  MiniMastercardLogo,
 };

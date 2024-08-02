@@ -7,7 +7,9 @@ export const metadata: Metadata = {
 export default function AddMoney() {
   return (
     <section className="font-inter w-full h-full bg-white p-5 border mt-5">
-      send
+      <h3 className="scroll-m-20 text-lg lg:text-xl font-semibold tracking-tight">
+        Send Money
+      </h3>
     </section>
   );
 }
