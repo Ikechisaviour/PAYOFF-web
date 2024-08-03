@@ -1,17 +1,18 @@
 import { Metadata } from "next";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {
-  title: "Instant Send",
-  description: "Instantly Send Money",
+  title: "Confirm Receive",
+  description: "Confirm Receive",
 };
-export default function InstantSend() {
+export default function ConfirmReceive() {
   return (
     <section className="font-inter w-full h-full bg-white p-5 border mt-5">
       <div className="mx-auto grid place-items-center">
-        <div className="w-[400px] h-[400px] bg-[#D9D9D9]"></div>
-        <h3 className="text-black text-xl lg:text-2xl font-medium mt-5 lg:mt-10 text-center">
-          Scan the receiver’s code to send money or make payment
-        </h3>
+        <div className="w-full md:w-[400px] h-[200px] md:h-[400px] bg-[#D9D9D9] mx-auto"></div>
+        <Button className="w-full bg-status  text-white lg:text-base text-sm md:max-w-[500px]  p-2 mt-5 rounded-lg cursor-pointer hover:opacity-80 hover:bg-primaryGreen ease-in ">
+          Share QR Code
+        </Button>
       </div>
       <h3 className="text-tab-gray text-lg lg:text-xl font-medium mt-5">
         Payment Steps:
