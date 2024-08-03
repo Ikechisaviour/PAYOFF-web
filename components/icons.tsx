@@ -1,6 +1,7 @@
 import {
   AlertTriangle,
   ArrowRight,
+  ArrowLeft,  
   ArrowUp,
   ArrowDown,
   BadgeDollarSign,
@@ -68,6 +69,7 @@ import {
 export type Icon = typeof LucideIcon
 
 export const Icons = {
+  arrowLeft: ArrowLeft,
   arrowUp: ArrowUp,
   arrowDown: ArrowDown,
   lifeBuoy:LifeBuoy,

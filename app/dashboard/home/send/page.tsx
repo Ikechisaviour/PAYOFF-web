@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Beneficiaries } from "@/components/beneficiaries";
 
 export const metadata: Metadata = {
   title: "Send",
@@ -10,6 +11,8 @@ export default function AddMoney() {
       <h3 className="scroll-m-20 text-lg lg:text-xl font-semibold tracking-tight">
         Send Money
       </h3>
+
+      <Beneficiaries/>
     </section>
   );
 }
