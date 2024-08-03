@@ -24,6 +24,7 @@ import AvatarGroup from "./Avatar group.png";
 import CardLinkImage from "./cardLink.png";
 import MiniVisaLogo from "./visa-logo.png";
 import MiniMastercardLogo from './Mastercard-logo.png';
+import Coins from "./coins.png";
 export {
   // Bag,
   Testiomonial1,
@@ -51,4 +52,5 @@ export {
   CardLinkImage,
   MiniVisaLogo,
   MiniMastercardLogo,
+  Coins,
 };
