@@ -1,5 +1,13 @@
 import * as dateFns from "date-fns";
-import { Visa, Mastercard, Verve } from "@/assets";
+import {
+  Visa,
+  Mastercard,
+  Verve,
+  Mtn,
+  Airtel,
+  Glo,
+  NineMobile,
+} from "@/assets";
 
 // Api Endpoints
 export const ENDPOINTS = {
@@ -112,5 +120,11 @@ export const APP_KEYS = {
       logo: Verve,
     },
   },
+  APP_NETWORKS: [
+    { name: "mtn", logo: Mtn },
+    { name: "airtel", logo: Airtel },
+    { name: "glo", logo: Glo },
+    { name: "9mobile", logo: NineMobile },
+  ],
   SHOW_BALANCE: "SHOW_BALANCE",
 };
