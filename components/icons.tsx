@@ -23,6 +23,7 @@ import {
   Filter,
   HelpCircle,
   Image,
+  Info,
   Laptop,
   Loader2,
   LogOut,
@@ -38,6 +39,7 @@ import {
   ReceiptText,
   Settings,
   SunMedium,
+  StickyNote,
   Trash,
   Ticket,
   Twitter,
@@ -123,10 +125,12 @@ export const Icons = {
   menu: Menu,
   search: Search,
   scanLine: ScanLine,
+  stickyNote: StickyNote,
   receiptText: ReceiptText,
   ticket: Ticket,
   wifi:Wifi,
   zap: Zap,
+  info: Info,
   gitHub: ({ ...props }: LucideProps) => (
     <svg
       aria-hidden="true"

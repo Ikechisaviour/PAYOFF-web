@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Navigator } from "./navigator";
 import { Collapsible } from "./collasible";
+import { Notifications } from "./notifications";
 
 interface MainNavProps {
   items?: SidebarNavItem[];
@@ -54,15 +55,19 @@ export function MainNav({ items, children, image }: MainNavProps) {
             <Icons.user className="text-lg text-[#292D32]" />
           </span>
         </Link>
-        <Link href={"/dashboard/notifications"} className="  hidden md:inline ">
-          <span
+
+        <DropdownMenu>
+          <DropdownMenuTrigger
             className={cn(
               " group flex items-center px-3 py-2 rounded-full  w-[32px] h-[32px] md:w-[40px] md:h-[40px]  font-normal hover:font-medium bg-[#F5F5F5] hover:text-[#101928]"
             )}
           >
             <Icons.bell className="text-lg text-[#292D32]" />
-          </span>
-        </Link>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="min-w-[200px] md:min-w-[400px] p-5 justify-start -right-10 absolute">
+            <Notifications />
+          </DropdownMenuContent>
+        </DropdownMenu>
 
         <DropdownMenu>
           <DropdownMenuTrigger className="group flex items-center md:px-3 md:py-2 rounded-full  w-[32px] h-[32px] md:w-[40px] md:h-[40px]  font-normal hover:font-medium hover:text-[#101928]">

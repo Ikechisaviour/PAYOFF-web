@@ -25,6 +25,7 @@ import CardLinkImage from "./cardLink.png";
 import MiniVisaLogo from "./visa-logo.png";
 import MiniMastercardLogo from './Mastercard-logo.png';
 import Coins from "./coins.png";
+import Tut from "./the-halal-design-studio-rAcIEWU97VA-unsplash 1.png"
 export {
   // Bag,
   Testiomonial1,
@@ -53,4 +54,5 @@ export {
   MiniVisaLogo,
   MiniMastercardLogo,
   Coins,
+  Tut,
 };

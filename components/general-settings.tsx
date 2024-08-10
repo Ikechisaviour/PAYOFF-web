@@ -1,4 +1,6 @@
 "use client";
+import { KycPopup } from "./kyc-popup";
+import { ReferralPopup } from "./referral-popup";
 import { SettingsHeader } from "./settings-header";
 import { Button } from "./ui/button";
 
@@ -16,12 +18,8 @@ export function GeneralSettings() {
         >
           Verify Account
         </Button>
-        <Button
-          variant="ghost"
-          className="block border text-formText mt-5 font-normal"
-        >
-          Upgrade Account
-        </Button>
+        <KycPopup/>
+        <ReferralPopup/>
       </div>
     </div>
   );
