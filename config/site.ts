@@ -383,3 +383,10 @@ export const faq = [
       "If you encounter any issues with your account, our customer service team is here to help. Contact us through the app or visit our support page for assistance.",
   },
 ];
+
+export const hotelRooms = [
+  { name: "Economy Rooms", type: "economy", amount: "₦ 50,000" },
+  { name: "Premium ", type: "premium", amount: "₦ 150,000" },
+  { name: "Executive Suite", type: "exec", amount: "₦ 350,000" },
+  { name: "Presidential Suit", type: "presidentail", amount: "₦ 550,000" },
+];

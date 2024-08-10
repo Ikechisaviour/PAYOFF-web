@@ -25,16 +25,22 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { hotelRooms } from "@/config/site";
 
 const today = new Date();
 today.setHours(0, 0, 0, 0);
 export const schema = z.object({
+  company: z.string().min(3, { message: "Company must have be chosen" }),
   location: z.string().min(3, { message: "Location must have be chosen" }),
-  name: z.string().min(3, { message: "Company Name must have be chosen" }),
-  rooms: z.string().min(1, { message: "Number of rooms mut be chosen" }),
-  days: z.string().min(1, { message: "Number of days mut be chosen" }),
-  roomType: z.string().min(1, { message: "Room Type mut be chosen" }),
+  destination: z
+    .string()
+    .min(3, { message: "Destination must have be chosen" }),
+  seats: z.string().min(1, { message: "Number of seats mut be chosen" }),
+  amount: z
+    .number({
+      required_error: "Amount is required",
+      invalid_type_error: "Amount must be a number",
+    })
+    .positive("Amount must be positive"),
   time: z.string().min(1, { message: "Time must be chosen" }),
   date: z
     .object({
@@ -60,7 +66,7 @@ export const schema = z.object({
     }),
 });
 
-export function HotelForm() {
+export function TransportationForm() {
   const [dateRange, setDateRange] = useState<DateRange | undefined>();
 
   const rangeFooter = useMemo(() => {
@@ -86,6 +92,7 @@ export function HotelForm() {
       );
     }
   }, [dateRange]);
+  // Infer the TypeScript type from the schema
   type FormSchemaType = z.infer<typeof schema>;
 
   // Set up the form with react-hook-form and Zod validation
@@ -113,8 +120,37 @@ export function HotelForm() {
       {" "}
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="mt-5">
-          <Label htmlFor="location" className=" font-medium text-xs lg:text-sm">
-            Location
+          <Label htmlFor="amount" className=" font-medium text-xs lg:text-sm">
+            Name of transport Company
+          </Label>
+
+          <Select
+            onValueChange={(value) => {
+              setValue("company", value);
+              trigger("company");
+            }}
+          >
+            <SelectTrigger className=" focus:ring-0 focus:ring-[#fff] focus:ring-offset-0 bg-white ">
+              <SelectValue placeholder="Choose Company" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="8GB">Gig</SelectItem>
+              <SelectItem value="2GB">Federal</SelectItem>
+              <SelectItem value="1GB">Young</SelectItem>
+            </SelectContent>
+          </Select>
+          <ErrorMessage
+            errors={errors}
+            name="company"
+            render={({ message }) => (
+              <p className="text-red-500 text-xs mt-1">{message}</p>
+            )}
+          />
+        </div>
+
+        <div className="mt-5">
+          <Label htmlFor="amount" className=" font-medium text-xs lg:text-sm">
+            Departure Location
           </Label>
 
           <Select
@@ -142,14 +178,14 @@ export function HotelForm() {
         </div>
 
         <div className="mt-5">
-          <Label htmlFor="location" className=" font-medium text-xs lg:text-sm">
-            Name of hotel
+          <Label htmlFor="amount" className=" font-medium text-xs lg:text-sm">
+            Destination
           </Label>
 
           <Select
             onValueChange={(value) => {
-              setValue("name", value);
-              trigger("name");
+              setValue("destination", value);
+              trigger("destination");
             }}
           >
             <SelectTrigger className=" focus:ring-0 focus:ring-[#fff] focus:ring-offset-0 bg-white ">
@@ -163,65 +199,7 @@ export function HotelForm() {
           </Select>
           <ErrorMessage
             errors={errors}
-            name="name"
-            render={({ message }) => (
-              <p className="text-red-500 text-xs mt-1">{message}</p>
-            )}
-          />
-        </div>
-
-        <div className="mt-5">
-          <Label htmlFor="rooms" className=" font-medium text-xs lg:text-sm">
-            Number of rooms
-          </Label>
-
-          <Select
-            onValueChange={(value) => {
-              setValue("rooms", value);
-              trigger("rooms");
-            }}
-          >
-            <SelectTrigger className=" focus:ring-0 focus:ring-[#fff] focus:ring-offset-0 bg-white ">
-              <SelectValue placeholder="Choose Company" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="8GB">Gig</SelectItem>
-              <SelectItem value="2GB">Federal</SelectItem>
-              <SelectItem value="1GB">Young</SelectItem>
-            </SelectContent>
-          </Select>
-          <ErrorMessage
-            errors={errors}
-            name="rooms"
-            render={({ message }) => (
-              <p className="text-red-500 text-xs mt-1">{message}</p>
-            )}
-          />
-        </div>
-
-        <div className="mt-5">
-          <Label htmlFor="days" className=" font-medium text-xs lg:text-sm">
-            Number Of Days
-          </Label>
-
-          <Select
-            onValueChange={(value) => {
-              setValue("days", value);
-              trigger("days");
-            }}
-          >
-            <SelectTrigger className=" focus:ring-0 focus:ring-[#fff] focus:ring-offset-0 bg-white ">
-              <SelectValue placeholder="Choose Company" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="8GB">Gig</SelectItem>
-              <SelectItem value="2GB">Federal</SelectItem>
-              <SelectItem value="1GB">Young</SelectItem>
-            </SelectContent>
-          </Select>
-          <ErrorMessage
-            errors={errors}
-            name="days"
+            name="destination"
             render={({ message }) => (
               <p className="text-red-500 text-xs mt-1">{message}</p>
             )}
@@ -230,7 +208,57 @@ export function HotelForm() {
 
         <div className="mt-5">
           <Label htmlFor="amount" className=" font-medium text-xs lg:text-sm">
-            Booking Date
+            Number of seats
+          </Label>
+
+          <Select
+            onValueChange={(value) => {
+              setValue("seats", value);
+              trigger("seats");
+            }}
+          >
+            <SelectTrigger className=" focus:ring-0 focus:ring-[#fff] focus:ring-offset-0 bg-white ">
+              <SelectValue placeholder="Choose Company" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="8GB">Gig</SelectItem>
+              <SelectItem value="2GB">Federal</SelectItem>
+              <SelectItem value="1GB">Young</SelectItem>
+            </SelectContent>
+          </Select>
+          <ErrorMessage
+            errors={errors}
+            name="seats"
+            render={({ message }) => (
+              <p className="text-red-500 text-xs mt-1">{message}</p>
+            )}
+          />
+        </div>
+        <div className="mt-5">
+          <Label htmlFor="amount" className=" font-medium text-xs lg:text-sm">
+            Amount
+          </Label>
+
+          <Input
+            id="amount"
+            type="number"
+            placeholder="₦ 0.00"
+            className="bg-transparent rounded-lg mt-2  text-formText placeholder:font-sans  focus-visible:ring-0 focus-visible:ring-[#fff] focus-visible:ring-offset-0"
+            {...register("amount", { valueAsNumber: true })}
+          />
+
+          <ErrorMessage
+            errors={errors}
+            name="amount"
+            render={({ message }) => (
+              <p className="text-red-500 text-xs mt-1">{message}</p>
+            )}
+          />
+        </div>
+
+        <div className="mt-5">
+          <Label htmlFor="amount" className=" font-medium text-xs lg:text-sm">
+            Departure Date
           </Label>
           <Popover>
             <PopoverTrigger asChild>
@@ -322,30 +350,6 @@ export function HotelForm() {
             )}
           />
         </div>
-
-        <div className="grid grid-cols-2 gap-5 max-w-[344px]">
-          {hotelRooms.map((room) => (
-            <div key={room.name}>
-              <h3 className="text-[#344054] text-xs lg:text-sm font-medium">
-                {room.name}
-              </h3>
-              <Button
-                className={cn(
-                  "block border text-formText mt-2 font-normal",
-                  watch("roomType") === room.type && "border-status text-status"
-                )}
-                variant="ghost"
-                type="button"
-                onClick={() => setValue("roomType", room.type)}
-              >
-                {room.amount}
-              </Button>
-            </div>
-          ))}
-        </div>
-
-        <p className="text-[#919499] text-xs my-2">N/B: The stipulated amount is per night</p>
-
         <div className="w-full grid place-items-center mt-5 ">
           <Button
             disabled={isSubmitting}
