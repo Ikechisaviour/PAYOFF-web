@@ -2,6 +2,7 @@ import { CardBalance } from "@/components/card-balance";
 import { Metadata } from "next";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TransactionDetailsWrapper } from "@/components/transaction-details-wrapper";
+import { AddCardPopup } from "@/components/add-card";
 
 export const metadata: Metadata = {
   title: "Card",
@@ -11,12 +12,18 @@ export default function Card() {
   return (
     <section className="font-inter w-full mt-5  h-full  grid  grid-cols-10 gap-5">
       <div className="md:col-span-5 col-span-10 bg-white h-auto min-h-0 p-5 border">
-        <h3 className="scroll-m-20 text-lg lg:text-xl font-semibold tracking-tight">
-          My Cards
-        </h3>
-        <p className="leading-7 [&:not(:first-child)]:mt-3 text-xs lg:text-sm text-formText">
-          Access Available cards or add a new card
-        </p>
+        <div className=" flex justify-between ">
+          <div>
+            <h3 className="scroll-m-20 text-lg lg:text-xl font-semibold tracking-tight">
+              My Cards
+            </h3>
+            <p className="leading-7 [&:not(:first-child)]:mt-3 text-xs lg:text-sm text-formText">
+              Access Available cards or add a new card
+            </p>
+          </div>
+
+          <AddCardPopup />
+        </div>
         <CardBalance />
       </div>
       <div className="md:col-span-5 col-span-10 bg-white p-5 border">

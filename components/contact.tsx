@@ -16,19 +16,18 @@ import { contactSchema } from "@/validators/contact";
 import { useRouter } from "next/navigation";
 import { returnError, setCookie, setToken } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
-
+import { useContact } from "@/hooks/helpers/useContact";
 
 export default function Contact() {
   const { toast } = useToast();
-  const router = useRouter();
-  const [showPassword, setShowPassword] = useState(false);
-  const togglePassword = () => setShowPassword((k) => !k);
+  const contact = useContact();
 
   type FormSchemaType = z.infer<typeof contactSchema>;
   const {
     trigger,
     register,
     handleSubmit,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaType>({
     resolver: zodResolver(contactSchema),
@@ -36,6 +35,12 @@ export default function Contact() {
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
     try {
       console.log({ data });
+      const res = await contact.mutateAsync(data);
+      toast({
+        title: "Success",
+        description: res.data?.message,
+      });
+      reset();
     } catch (error) {
       const message = returnError(error);
       toast({
@@ -139,13 +144,13 @@ export default function Contact() {
             placeholder="Enter description"
             id="message"
             className=" rounded-lg bg-white dark:bg-transparent border  mt-1 lg:min-h-[260px] "
-            {...register("message", { required: "This is required." })}
-            onBlur={() => trigger("message")}
+            {...register("body", { required: "This is required." })}
+            onBlur={() => trigger("body")}
           />
         </motion.div>
         <ErrorMessage
           errors={errors}
-          name="message"
+          name="body"
           render={({ message }: { message: string }) => (
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -170,7 +175,7 @@ export default function Contact() {
             className="w-full text-white lg:text-base text-sm font-semibold  p-2 mt-5  rounded-lg cursor-pointer  bg-green max-w-[100px] hover:opacity-80  transition-all ease-in "
           >
             {isSubmitting ? (
-              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+              <Icons.spinner className=" h-4 w-4 animate-spin" />
             ) : (
               "Submit"
             )}

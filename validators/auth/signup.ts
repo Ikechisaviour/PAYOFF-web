@@ -73,11 +73,11 @@ export const InfoSchema = z.object({
       }
     ),
   phoneNumber: phoneValidation,
-  // state: z
-  //   .string()
-  //   .min(3, { message: "state must have at least three characters " }),
-  // localGovernment: z.string().min(3, {
-  //   message: "localGovernment must have at least three characters ",
-  // }),
-  // gender: z.enum(genders),
+  state: z
+    .string()
+    .min(3, { message: "state must have at least three characters " }),
+  localGovernment: z.string().min(3, {
+    message: "localGovernment must have at least three characters ",
+  }),
+  gender: z.enum(genders),
 });

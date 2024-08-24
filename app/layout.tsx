@@ -6,6 +6,7 @@ import { Analytics } from "@/components/analytics";
 import { cn } from "@/lib/server-utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
+import { GlobalProvider } from "@/context/global";
 
 const fontSans = FontSans({ subsets: ["latin"] });
 
@@ -68,9 +69,11 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          {children}
-          <Toaster />
-          <Analytics />
+          <GlobalProvider>
+            {children}
+            <Toaster />
+            <Analytics />
+          </GlobalProvider>
         </ThemeProvider>
       </body>
     </html>

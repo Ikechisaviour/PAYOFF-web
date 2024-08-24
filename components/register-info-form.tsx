@@ -15,22 +15,60 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useGetStates } from "@/hooks/helpers/useGetStates";
+import { useState, useEffect } from "react";
+import { useGetLga } from "@/hooks/helpers/useGetLgas";
+import { useReadLocalStorage } from "usehooks-ts";
+import { TempSignupData } from "@/types";
+import { APP_KEYS } from "@/lib/constants";
+import { useRegister } from "@/hooks/auth/useRegister";
+import { useToast } from "@/components/ui/use-toast";
+import { returnError } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 type FormSchemaType = z.infer<typeof InfoSchema>;
 
 export default function RegisterInfo() {
+  const { toast } = useToast();
+  const router = useRouter();
+  const registerUser = useRegister();
+  const states = useGetStates();
+  const [selectedState, setSelectedState] = useState("");
+  const lga = useGetLga(selectedState);
+  const tempData = useReadLocalStorage<TempSignupData>(
+    APP_KEYS.TEMP_SIGNUP_DATA
+  );
   const {
     register,
     handleSubmit,
+    setValue,
+    trigger,
     formState: { errors, isSubmitting },
   } = useForm<FormSchemaType>({
     resolver: zodResolver(InfoSchema),
   });
+  useEffect(() => {
+    if (tempData?.type === "email") setValue("email", tempData?.data);
+    if (tempData?.type === "phoneNumber")
+      setValue("phoneNumber", tempData?.data as any);
+  }, [setValue, tempData]);
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
     try {
       console.log({ data });
+      const res = await registerUser.mutateAsync(data);
+      toast({
+        title: "Success",
+        description: res.data?.message,
+      });
+      
+      router.push("/dashboard/home");
     } catch (error) {
-      console.error(error);
+      const message = returnError(error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: message,
+      });
     }
   };
   return (
@@ -152,6 +190,9 @@ export default function RegisterInfo() {
               placeholder="Enter Phone number here"
               className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
               {...register("phoneNumber", { required: "This is required." })}
+              defaultValue={
+                tempData?.type === "phoneNumber" ? tempData?.data : ""
+              }
             />
           </div>
           <ErrorMessage
@@ -179,6 +220,7 @@ export default function RegisterInfo() {
               placeholder="Enter Email here"
               className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
               {...register("email", { required: "This is required." })}
+              defaultValue={tempData?.type === "email" ? tempData?.data : ""}
             />
             <ErrorMessage
               errors={errors}
@@ -254,7 +296,12 @@ export default function RegisterInfo() {
               Gender
             </Label>
 
-            <Select >
+            <Select
+              onValueChange={(value: "male" | "female") => {
+                setValue("gender", value);
+                trigger("gender");
+              }}
+            >
               <SelectTrigger className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out">
                 <SelectValue placeholder="Select Gender" />
               </SelectTrigger>
@@ -290,18 +337,21 @@ export default function RegisterInfo() {
             >
               State
             </Label>
-            <Select>
+            <Select
+              disabled={states.isLoading}
+              onValueChange={(value) => {
+                setSelectedState(value);
+                setValue("state", value);
+                trigger("state");
+              }}
+            >
               <SelectTrigger className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out">
                 <SelectValue placeholder="Select State" />
               </SelectTrigger>
               <SelectContent>
-                {genders.map((gender) => (
-                  <SelectItem
-                    className="capitalize"
-                    key={gender}
-                    value={gender}
-                  >
-                    {gender}
+                {states.data?.data?.data?.states.map((state) => (
+                  <SelectItem className="capitalize" key={state} value={state}>
+                    {state}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -326,21 +376,19 @@ export default function RegisterInfo() {
             </Label>
 
             <Select
-              // {...register("localGovernment", {
-              //   required: "This is required.",
-              // })}
+              disabled={lga.isLoading}
+              onValueChange={(value) => {
+                setValue("localGovernment", value);
+                trigger("localGovernment");
+              }}
             >
               <SelectTrigger className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out">
                 <SelectValue placeholder="Select Local Government" />
               </SelectTrigger>
               <SelectContent>
-                {genders.map((gender) => (
-                  <SelectItem
-                    className="capitalize"
-                    key={gender}
-                    value={gender}
-                  >
-                    {gender}
+                {lga?.data?.data?.data?.localGovernment.map((lga) => (
+                  <SelectItem className="capitalize" key={lga} value={lga}>
+                    {lga}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -359,17 +407,17 @@ export default function RegisterInfo() {
         </div>
 
         <div className="w-full grid place-items-center my-10 ">
-          {isSubmitting ? (
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-          ) : (
-            <Button
-              disabled={isSubmitting}
-              type="submit"
-              className="w-full bg-primaryGreen  text-white lg:text-base text-sm  p-2 mt-5 lg:mt-0 rounded-lg cursor-pointer hover:opacity-80 hover:bg-primaryGreen ease-in "
-            >
-              Proceed
-            </Button>
-          )}
+          <Button
+            disabled={isSubmitting}
+            type="submit"
+            className="w-full bg-primaryGreen  text-white lg:text-base text-sm  p-2 mt-5 lg:mt-0 rounded-lg cursor-pointer hover:opacity-80 hover:bg-primaryGreen ease-in "
+          >
+            {isSubmitting ? (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Proceed"
+            )}
+          </Button>
         </div>
       </form>
     </div>

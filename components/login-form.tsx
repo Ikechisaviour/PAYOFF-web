@@ -12,10 +12,15 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { Checkbox } from "@/components/ui/checkbox";
+import { returnError } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useLogin } from "@/hooks/auth/useLogin";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword((k) => !k);
   const { toast } = useToast();
+  const login = useLogin();
+  const router = useRouter();
   type FormSchemaType = z.infer<typeof LoginSchema>;
   const {
     register,
@@ -27,8 +32,20 @@ export default function Login() {
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
     try {
       console.log({ data });
+      const res = await login.mutateAsync(data);
+      toast({
+        title: "Success",
+        description: res.data?.message,
+      });
+
+      router.push("/dashboard/home");
     } catch (error) {
-      console.error(error);
+      const message = returnError(error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: message,
+      });
     }
   };
   return (

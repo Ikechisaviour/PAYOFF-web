@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from "react";
 import { z } from "zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -20,7 +21,25 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { returnError } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
+import { useVerifyToken } from "@/hooks/auth/useVerifyToken";
+import { useResendToken } from "@/hooks/auth/useResendToken";
+import { useReadLocalStorage } from "usehooks-ts";
+import { APP_KEYS } from "@/lib/constants";
+import { TempSignupData } from "@/types";
 export default function ConfirmOtp() {
+  const { toast } = useToast();
+  const router = useRouter();
+  const verifyToken = useVerifyToken();
+  const resendToken = useResendToken();
+  const tempData = useReadLocalStorage<TempSignupData>(
+    APP_KEYS.TEMP_SIGNUP_DATA
+  );
+  const [canResend, setCanResend] = useState<boolean>(false);
+  const [timer, setTimer] = useState<number>(0);
+
   type FormSchemaType = z.infer<typeof OtpSchema>;
   const form = useForm<FormSchemaType>({
     resolver: zodResolver(OtpSchema),
@@ -29,11 +48,65 @@ export default function ConfirmOtp() {
     },
   });
 
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (!canResend) {
+      interval = setInterval(() => {
+        setTimer((prev) => {
+          if (prev <= 1) {
+            clearInterval(interval);
+            setCanResend(true);
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => clearInterval(interval);
+  }, [canResend]);
+
+  const handleResend = async () => {
+    try {
+      if (!tempData)
+        return toast({
+          variant: "destructive",
+          title: "Error",
+          description: "email or phone number not found",
+        });
+      const { type, data } = tempData;
+      const res = await resendToken.mutateAsync({ [type]: data });
+      toast({
+        title: "OTP Resent",
+        description: res.data.data.message,
+      });
+      setCanResend(false);
+      setTimer(60); // Set timer to 60 seconds
+    } catch (error) {
+      const message = returnError(error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: message,
+      });
+    }
+  };
+
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
     try {
       console.log({ data });
+      const res = await verifyToken.mutateAsync(data);
+      toast({
+        title: "Success",
+        description: res.data?.message,
+      });
+      router.push("/auth/register/info");
     } catch (error) {
-      console.error(error);
+      const message = returnError(error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: message,
+      });
     }
   };
 
@@ -106,9 +179,11 @@ export default function ConfirmOtp() {
             Didn’t receive code?{" "}
             <Button
               type="button"
+              disabled={!canResend}
+              onClick={handleResend}
               className="text-primaryGreen  p-0 bg-transparent hover:bg-transparent hover:opacity-90 ease-in"
             >
-              Resend
+              {canResend ? "Resend" : `Resend in ${timer}s`}
             </Button>
           </h4>
         </form>

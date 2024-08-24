@@ -9,9 +9,24 @@ import { Icons } from "@/components/icons";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { useGenerateToken } from "@/hooks/auth/useGenerateToken";
+import { returnError } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useLocalStorage } from "usehooks-ts";
+import { APP_KEYS } from "@/lib/constants";
+import { TempSignupData } from "@/types";
 
 export default function GenerateOtp() {
   const { toast } = useToast();
+  const router = useRouter();
+  const generateToken = useGenerateToken();
+  const [, setTempValue] = useLocalStorage<TempSignupData>(
+    APP_KEYS.TEMP_SIGNUP_DATA,
+    {
+      type: "",
+      data: "",
+    }
+  );
   type FormSchemaType = z.infer<typeof emailSchema>;
   const {
     register,
@@ -23,9 +38,21 @@ export default function GenerateOtp() {
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
     try {
-      console.log({ data });
+      const res = await generateToken.mutateAsync(data);
+      res.data.data.email &&
+        setTempValue({ type: "email", data: res.data.data.email });
+      toast({
+        title: "Success",
+        description: res.data?.message,
+      });
+      router.push("/auth/register/confirm-otp");
     } catch (error) {
-      console.error(error);
+      const message = returnError(error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: message,
+      });
     }
   };
   return (
@@ -55,20 +82,18 @@ export default function GenerateOtp() {
         />
 
         <div className="w-full grid place-items-center">
-          {isSubmitting ? (
-            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-          ) : (
-            <Button
-              disabled={isSubmitting}
-              type="submit"
-              className="w-full bg-primaryGreen  text-white lg:text-base text-sm  p-2 mt-5 lg:mt-10 rounded-lg cursor-pointer hover:opacity-80 ease-in max-w-[22.5rem]"
-            >
-              Sign Up
-            </Button>
-          )}
+          <Button
+            disabled={isSubmitting}
+            type="submit"
+            className="w-full bg-primaryGreen  text-white lg:text-base text-sm  p-2 mt-5 lg:mt-10 rounded-lg cursor-pointer hover:opacity-80 ease-in max-w-[22.5rem]"
+          >
+            {isSubmitting ? (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Sign Up"
+            )}
+          </Button>
         </div>
-
-        
       </form>
 
       <p className="leading-7 text-secondaryParagraph dark:text-gray-500 block text-center capitalize  lg:text-lg my-5 lg:my-10">

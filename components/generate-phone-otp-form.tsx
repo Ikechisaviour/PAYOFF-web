@@ -9,9 +9,24 @@ import { Icons } from "@/components/icons";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
+import { useGenerateToken } from "@/hooks/auth/useGenerateToken";
+import { returnError } from "@/lib/utils";
+import { useRouter } from "next/navigation";
+import { useLocalStorage } from "usehooks-ts";
+import { APP_KEYS } from "@/lib/constants";
+import { TempSignupData } from "@/types";
 
 export default function GeneratePhone() {
   const { toast } = useToast();
+  const router = useRouter();
+  const generateToken = useGenerateToken();
+  const [, setTempValue] = useLocalStorage<TempSignupData>(
+    APP_KEYS.TEMP_SIGNUP_DATA,
+    {
+      type: "",
+      data: "",
+    }
+  );
   type FormSchemaType = z.infer<typeof phoneSchema>;
   const {
     register,
@@ -23,9 +38,21 @@ export default function GeneratePhone() {
 
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
     try {
-      console.log({ data });
+      const res = await generateToken.mutateAsync(data);
+      res.data.data.phoneNumber &&
+        setTempValue({ type: "phoneNumber", data: res.data.data.phoneNumber });
+      toast({
+        title: "Success",
+        description: res.data?.message,
+      });
+      router.push("/auth/register/confirm-otp");
     } catch (error) {
-      console.error(error);
+      const message = returnError(error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: message,
+      });
     }
   };
   return (

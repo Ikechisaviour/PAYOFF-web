@@ -49,7 +49,7 @@ export function userLogout() {
   delete axios.defaults.headers.common['Authorization'];
   removeCookie(APP_KEYS.ACCESS_TOKEN);
   removeCookie(APP_KEYS.REFRESH_TOKEN);
-  sessionStorage.removeItem(APP_KEYS.USER)
+  // sessionStorage.removeItem(APP_KEYS.USER)
 }
 
 
