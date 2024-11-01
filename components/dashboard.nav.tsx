@@ -1,13 +1,13 @@
-"use client";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Logo, Bag } from "@/assets";
-import Image from "next/image";
+'use client';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Logo, Bag } from '@/assets';
+import Image from 'next/image';
 
-import { SidebarNavItem } from "@/types";
-import { cn } from "@/lib/utils";
-import { Icons } from "@/components/icons";
-import { motion } from "framer-motion";
+import { SidebarNavItem } from '@/types';
+import { cn } from '@/lib/utils';
+import { Icons } from '@/components/icons';
+import { motion } from 'framer-motion';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -18,9 +18,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { useRouter } from "next/navigation";
-import { removeCookie, userLogout } from "@/lib/utils";
+} from '@/components/ui/alert-dialog';
+import { useRouter } from 'next/navigation';
+import { removeCookie, userLogout } from '@/lib/utils';
 
 interface DashboardNavProps {
   items: SidebarNavItem[];
@@ -43,8 +43,8 @@ export function DashboardNav({ items, bottomItems }: DashboardNavProps) {
   const router = useRouter();
 
   const logout = () => {
-    userLogout();
-    router.push("/auth/login");
+    // userLogout();
+    // router.push("/auth/login");
   };
 
   if (!items?.length) {
@@ -59,7 +59,7 @@ export function DashboardNav({ items, bottomItems }: DashboardNavProps) {
         </h3>
         <div className=" font-inter space-y-3 flex flex-col mt-3">
           {items.map((item, index) => {
-            const Icon = Icons[item.icon || "arrowRight"];
+            const Icon = Icons[item.icon || 'arrowRight'];
             return (
               item.href && (
                 <motion.div
@@ -69,14 +69,14 @@ export function DashboardNav({ items, bottomItems }: DashboardNavProps) {
                   custom={index}
                   variants={navItemVariants}
                 >
-                  <Link href={item.disabled ? "/" : item.href}>
+                  <Link href={item.disabled ? '/' : item.href}>
                     <span
                       className={cn(
-                        "group flex items-center px-3 py-2 text-sm text-dashboardLink font-normal hover:bg-dashboardLink-activeBg hover:text-dashboardLink-active",
+                        'group flex items-center px-3 py-2 text-sm text-dashboardLink font-normal hover:bg-dashboardLink-activeBg hover:text-dashboardLink-active',
                         path.includes(item.href)
-                          ? "bg-dashboardLink-activeBg text-dashboardLink-active "
-                          : "transparent",
-                        item.disabled && "cursor-not-allowed opacity-80"
+                          ? 'bg-dashboardLink-activeBg text-dashboardLink-active '
+                          : 'transparent',
+                        item.disabled && 'cursor-not-allowed opacity-80'
                       )}
                     >
                       <Icon className={`mr-2 h-4 w-4  `} />
@@ -108,7 +108,7 @@ export function DashboardNav({ items, bottomItems }: DashboardNavProps) {
       <div className="mt-3 border-t">
         <div className=" my-5 font-inter space-y-3 flex flex-col">
           {bottomItems.map((item, index) => {
-            const Icon = Icons[item.icon || "arrowRight"];
+            const Icon = Icons[item.icon || 'arrowRight'];
             return (
               item.href && (
                 <motion.div
@@ -118,14 +118,14 @@ export function DashboardNav({ items, bottomItems }: DashboardNavProps) {
                   custom={index}
                   variants={navItemVariants}
                 >
-                  <Link href={item.disabled ? "/" : item.href}>
+                  <Link href={item.disabled ? '/' : item.href}>
                     <span
                       className={cn(
-                        "group flex items-center px-3 py-2 text-sm text-dashboardLink font-normal hover:bg-dashboardLink-activeBg hover:text-dashboardLink-active",
+                        'group flex items-center px-3 py-2 text-sm text-dashboardLink font-normal hover:bg-dashboardLink-activeBg hover:text-dashboardLink-active',
                         path.includes(item.href)
-                          ? "bg-dashboardLink-activeBg text-dashboardLink-active "
-                          : "transparent",
-                        item.disabled && "cursor-not-allowed opacity-80"
+                          ? 'bg-dashboardLink-activeBg text-dashboardLink-active '
+                          : 'transparent',
+                        item.disabled && 'cursor-not-allowed opacity-80'
                       )}
                     >
                       <Icon className={`mr-2 h-4 w-4  `} />
@@ -144,7 +144,7 @@ export function DashboardNav({ items, bottomItems }: DashboardNavProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: items.length * 0.1 + 0.1 }}
                 className={cn(
-                  "group flex items-center px-3 py-2 text-sm text-[#C20701] font-normal hover:bg-dashboardLink-activeBg hover:text-dashboardLink-active"
+                  'group flex items-center px-3 py-2 text-sm text-[#C20701] font-normal hover:bg-dashboardLink-activeBg hover:text-dashboardLink-active'
                 )}
               >
                 <Icons.logout className="mr-2 h-4 w-4 " />

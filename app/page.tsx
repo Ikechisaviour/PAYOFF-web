@@ -1,5 +1,5 @@
-import Image from "next/image";
-import { NavBar } from "@/components/nav";
+import Image from 'next/image';
+import { NavBar } from '@/components/nav';
 import {
   HeroImg,
   IconButton,
@@ -10,18 +10,18 @@ import {
   FastAndSecure,
   RealTimeUpdates,
   BillPayments,
-} from "@/assets";
-import { Badge } from "@/components/ui/badge";
-import Link from "next/link";
-import { Icons } from "@/components/icons";
-import { GroupAvatar } from "@/components/ui/group-avatar";
-import { keyPoints, images, testimonials } from "@/config/site";
-import { Footer } from "@/components/footer";
-import { Subscribe } from "@/components/subscribe-form";
-import { CarouselImages } from "@/components/homePageSlider";
-import { Timer } from "@/components/timer";
-import { Points } from "@/components/points";
-import { SlideShow } from "@/components/slide-show";
+} from '@/assets';
+import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
+import { Icons } from '@/components/icons';
+import { GroupAvatar } from '@/components/ui/group-avatar';
+import { keyPoints, images, testimonials } from '@/config/site';
+import { Footer } from '@/components/footer';
+import { Subscribe } from '@/components/subscribe-form';
+import { CarouselImages } from '@/components/homePageSlider';
+import { Timer } from '@/components/timer';
+import { Points } from '@/components/points';
+import { SlideShow } from '@/components/slide-show';
 
 export default function Home() {
   return (
@@ -30,7 +30,7 @@ export default function Home() {
         <NavBar />
       </header>
       <section className="container">
-        <div className="md:flex  w-full md:justify-between my-[5rem] md:my-[7rem]  ">
+        <div className="md:flex  w-full md:justify-between my-[5rem] md:my-[7rem]">
           <div className="font-sans md:w-[48.5%] ">
             <Badge
               variant="outline"
@@ -57,7 +57,7 @@ export default function Home() {
                   className={`block  text-center lg:text-left w-full lg:inline text-sm lg:text-base font-normal font-sans ease-in duration-300 
                     p-3 lg:dark:p-4 rounded-[10px] text-white bg-green hover:opacity-80 no-underline dark:border dark:border-green  dark:hover:text-green dark:hover:bg-bg
                   `}
-                  href={"/auth/register"}
+                  href={'/auth/register'}
                 >
                   Get Started
                 </Link>
@@ -67,9 +67,9 @@ export default function Home() {
                   className={` my-5 lg:mt-0 lg:mb-0  w-full flex items-center justify-center text-sm lg:text-base font-normal font-sans ease-in duration-300 
                     p-3 text-black lg:ml-5 dark:text-white hover:opacity-80 dark:hover:text-green dark:border dark:border-bg dark:hover:border-green rounded-[10px]
                   `}
-                  href={"/download"}
+                  href={'/download'}
                 >
-                  Download App{" "}
+                  Download App{' '}
                   <Icons.arrowRight className="w-4 h-4 ml-2 ease-in duration-300" />
                 </Link>
               </li>
@@ -113,32 +113,32 @@ export default function Home() {
             </div> */}
           </div>
 
-          <div className="relative rounded-lg md:w-[48.5%] ">
+          <div className="relative rounded-lg md:w-[48.5%]">
             <div className="absolute -right-[1rem] top-[calc(60%-10px)]  lg:top-[calc(70%-10px)] transform -translate-y-1/2 w-[8rem] lg:w-[12rem] lg:h-[11rem] border  bg-white dark:bg-bg rounded-lg shadow-lg z-[2] px-1 py-2 lg:px-2 lg:py-5">
               <div className="font-sans text-[8px] lg:text-sm text-black dark:text-cardColor font-medium border-b pb-1 border-slim dark:border-cardColor">
                 Card details
               </div>
               <div className=" text-[8px] lg:text-xs">
                 <div className="grid grid-cols-2 mt-1 lg:mt-3 ">
-                  <h4 className="text-cardColor">Balance:</h4>{" "}
+                  <h4 className="text-cardColor">Balance:</h4>{' '}
                   <p className="text-black text-right dark:text-cardColor dark:font-semibold">
                     ₦80,290.09
                   </p>
                 </div>
                 <div className="grid grid-cols-2 mt-1 lg:mt-3">
-                  <h4 className="text-cardColor">Type:</h4>{" "}
+                  <h4 className="text-cardColor">Type:</h4>{' '}
                   <p className="text-black text-right dark:text-cardColor dark:font-semibold ">
                     Platinum
                   </p>
                 </div>
                 <div className="grid grid-cols-2 mt-1 lg:mt-3">
-                  <h4 className="text-cardColor">Card Number:</h4>{" "}
+                  <h4 className="text-cardColor">Card Number:</h4>{' '}
                   <p className="text-black text-right dark:text-cardColor dark:font-semibold">
                     xxxx 0707
                   </p>
                 </div>
                 <div className="grid grid-cols-2 mt-1 lg:mt-3">
-                  <h4 className="text-cardColor">Status:</h4>{" "}
+                  <h4 className="text-cardColor">Status:</h4>{' '}
                   <p className="text-black text-right flex items-center justify-end dark:text-cardColor dark:font-semibold">
                     <span className="w-[7px] h-[7px] bg-[#61D516] rounded-full mr-1 block" />
                     Active
@@ -162,7 +162,7 @@ export default function Home() {
                   </p>
                   <h4 className="text-cardColor lg:mt-1  text-[6px] lg:text-[9px]">
                     Sent · 2nd April 2024
-                  </h4>{" "}
+                  </h4>{' '}
                 </div>
               </div>
               <div>
@@ -235,7 +235,7 @@ export default function Home() {
                 alt="line"
                 className="w-[10rem] -mt-2 z-[1] h-[.75rem] ml-2"
               /> */}
-            </span>{" "}
+            </span>{' '}
             <span className="block text-[#001354] dark:text-green">
               with Ease & Style
             </span>
@@ -325,7 +325,7 @@ export default function Home() {
           <h2 className="font-medium scroll-m-20 pb-2 text-xl lg:text-4xl tracking-tight my-5 text-center flex flex-col justify-center items-center">
             <span className="block text-black dark:text-white">
               Discover what sets us apart as a trusted
-            </span>{" "}
+            </span>{' '}
             <span className="block text-[#001354] dark:text-green">
               partner in financial technology.
               {/* <Image
@@ -338,7 +338,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[1rem] lg:gap-[1.5rem] mt-10">
             {keyPoints.map((point) => {
-              const Icon = Icons[point.icon || "arrowRight"];
+              const Icon = Icons[point.icon || 'arrowRight'];
               return (
                 <div key={point.title}>
                   <Icon className="h-[1rem] lg:h-[1.125rem] w-[1rem] lg:w-[1.125rem]" />
@@ -354,7 +354,7 @@ export default function Home() {
                      text-black dark:text-green hover:opacity-80 dark:hover:text-green  "
                     href={point.href}
                   >
-                    Learn more{" "}
+                    Learn more{' '}
                     <Icons.arrowRight className="w-4 h-4 ml-2 ease-in duration-300" />
                   </Link>
                 </div>
@@ -376,7 +376,7 @@ export default function Home() {
 
           <h2 className="font-medium scroll-m-20 pb-2 text-xl lg:text-4xl tracking-tight my-5 text-center items-end bg-clip-text bg-gradient-to-b from-black to-[#001354] dark:from-slim dark:to-foreground">
             <span className="text-center relative z-[5]">
-              Word from our{" "}
+              Word from our{' '}
               <span className="block lg:inline text-[#001354] dark:text-green lg:text-inherit">
                 early users
               </span>
@@ -402,7 +402,7 @@ export default function Home() {
                   <div
                     key={testimonial.name}
                     className={`bg-white dark:bg-bg shadow-lg rounded-[9px] lg:rounded-[20px] p-3 lg:p-7 dark:border ${
-                      index < 3 ? "backdrop-blur-sm bg-opacity-50" : ""
+                      index < 3 ? 'backdrop-blur-sm bg-opacity-50' : ''
                     }`}
                     style={{
                       gridRowEnd: `span ${Math.ceil(
@@ -465,7 +465,7 @@ export default function Home() {
           <h2 className="font-medium lg:mt-5 scroll-m-20 pb-2 text-xl lg:text-4xl tracking-tight my-5 text-center flex flex-col justify-center items-center">
             <span className="block text-black dark:text-white">
               Get started for
-            </span>{" "}
+            </span>{' '}
             <span className="block text-[#001354] dark:text-green">
               free today.
             </span>
@@ -484,7 +484,7 @@ export default function Home() {
                 className={`block  text-center lg:text-left w-full lg:inline text-sm lg:text-base font-normal font-sans ease-in duration-300 
                     p-3 lg:dark:p-4 rounded-[10px] text-white bg-green  hover:opacity-80 no-underline dark:border dark:border-green  dark:hover:text-green dark:hover:bg-bg
                   `}
-                href={"/auth/register"}
+                href={'/auth/register'}
               >
                 Get started
               </Link>
@@ -494,7 +494,7 @@ export default function Home() {
                 className={` my-5 lg:mt-0 lg:mb-0  w-full flex items-center justify-center text-sm lg:text-base font-medium font-sans ease-in duration-300 
                     p-3 text-black lg:ml-5 dark:text-white hover:opacity-80 dark:hover:text-green dark:border dark:border-bg dark:hover:border-green rounded-[10px]
                   `}
-                href={"/download"}
+                href={'/download'}
               >
                 Download App
                 <Icons.arrowRight className="w-4 h-4 ml-2 ease-in duration-300" />
@@ -517,7 +517,7 @@ export default function Home() {
           <h2 className="font-medium lg:mt-5 scroll-m-20 pb-2 text-xl lg:text-4xl tracking-tight my-5 text-center flex flex-col justify-center items-center">
             <span className="block text-black dark:text-white">
               Subscribe to get the
-            </span>{" "}
+            </span>{' '}
             <span className="block text-[#001354] dark:text-green">
               latest news about us
             </span>
@@ -527,8 +527,8 @@ export default function Home() {
         </div>
       </section>
       <div className="mt-[5rem]">
-        {" "}
-        <Footer />{" "}
+        {' '}
+        <Footer />{' '}
       </div>
 
       {/* <div className="flex min-h-screen flex-col items-center justify-between p-24">

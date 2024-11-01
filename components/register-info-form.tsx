@@ -1,30 +1,30 @@
-"use client";
-import { z } from "zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ErrorMessage } from "@hookform/error-message";
-import { InfoSchema, genders } from "@/validators/auth/signup";
-import { Input } from "@/components/ui/input";
-import { Icons } from "@/components/icons";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
+'use client';
+import { z } from 'zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ErrorMessage } from '@hookform/error-message';
+import { InfoSchema, genders } from '@/validators/auth/signup';
+import { Input } from '@/components/ui/input';
+import { Icons } from '@/components/icons';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { useGetStates } from "@/hooks/helpers/useGetStates";
-import { useState, useEffect } from "react";
-import { useGetLga } from "@/hooks/helpers/useGetLgas";
-import { useReadLocalStorage } from "usehooks-ts";
-import { TempSignupData } from "@/types";
-import { APP_KEYS } from "@/lib/constants";
-import { useRegister } from "@/hooks/auth/useRegister";
-import { useToast } from "@/components/ui/use-toast";
-import { returnError } from "@/lib/utils";
-import { useRouter } from "next/navigation";
+} from '@/components/ui/select';
+import { useGetStates } from '@/hooks/helpers/useGetStates';
+import { useState, useEffect } from 'react';
+import { useGetLga } from '@/hooks/helpers/useGetLgas';
+import { useReadLocalStorage } from 'usehooks-ts';
+import { TempSignupData } from '@/types';
+import { APP_KEYS } from '@/lib/constants';
+import { useRegister } from '@/hooks/auth/useRegister';
+import { useToast } from '@/components/ui/use-toast';
+import { returnError } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
 
 type FormSchemaType = z.infer<typeof InfoSchema>;
 
@@ -33,7 +33,7 @@ export default function RegisterInfo() {
   const router = useRouter();
   const registerUser = useRegister();
   const states = useGetStates();
-  const [selectedState, setSelectedState] = useState("");
+  const [selectedState, setSelectedState] = useState('');
   const lga = useGetLga(selectedState);
   const tempData = useReadLocalStorage<TempSignupData>(
     APP_KEYS.TEMP_SIGNUP_DATA
@@ -48,25 +48,25 @@ export default function RegisterInfo() {
     resolver: zodResolver(InfoSchema),
   });
   useEffect(() => {
-    if (tempData?.type === "email") setValue("email", tempData?.data);
-    if (tempData?.type === "phoneNumber")
-      setValue("phoneNumber", tempData?.data as any);
+    if (tempData?.type === 'email') setValue('email', tempData?.data);
+    if (tempData?.type === 'phoneNumber')
+      setValue('phoneNumber', tempData?.data as any);
   }, [setValue, tempData]);
   const onSubmit: SubmitHandler<FormSchemaType> = async (data) => {
     try {
       console.log({ data });
       const res = await registerUser.mutateAsync(data);
       toast({
-        title: "Success",
+        title: 'Success',
         description: res.data?.message,
       });
-      
-      router.push("/dashboard/home");
+
+      router.push('/dashboard/home');
     } catch (error) {
       const message = returnError(error);
       toast({
-        variant: "destructive",
-        title: "Error",
+        variant: 'destructive',
+        title: 'Error',
         description: message,
       });
     }
@@ -83,10 +83,10 @@ export default function RegisterInfo() {
           </Label>
           <Input
             id="firstname"
-            type={"text"}
+            type={'text'}
             placeholder="Enter Surname here"
             className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
-            {...register("firstName", { required: "This is required." })}
+            {...register('firstName', { required: 'This is required.' })}
           />
         </div>
         <ErrorMessage
@@ -109,10 +109,10 @@ export default function RegisterInfo() {
             </Label>
             <Input
               id="lastname"
-              type={"text"}
+              type={'text'}
               placeholder="Enter Surname here"
               className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
-              {...register("lastName", { required: "This is required." })}
+              {...register('lastName', { required: 'This is required.' })}
             />
 
             <ErrorMessage
@@ -135,10 +135,10 @@ export default function RegisterInfo() {
             </Label>
             <Input
               id="middleName"
-              type={"text"}
+              type={'text'}
               placeholder="Enter Surname here"
               className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
-              {...register("middleName")}
+              {...register('middleName')}
             />
             <ErrorMessage
               errors={errors}
@@ -162,9 +162,9 @@ export default function RegisterInfo() {
             </Label>
             <Input
               id="date"
-              type={"date"}
+              type={'date'}
               className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
-              {...register("dateOfBirth", { required: "This is required." })}
+              {...register('dateOfBirth', { required: 'This is required.' })}
             />
             <ErrorMessage
               errors={errors}
@@ -186,12 +186,12 @@ export default function RegisterInfo() {
             </Label>
             <Input
               id="phone"
-              type={"tel"}
+              type={'tel'}
               placeholder="Enter Phone number here"
               className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
-              {...register("phoneNumber", { required: "This is required." })}
+              {...register('phoneNumber', { required: 'This is required.' })}
               defaultValue={
-                tempData?.type === "phoneNumber" ? tempData?.data : ""
+                tempData?.type === 'phoneNumber' ? tempData?.data : ''
               }
             />
           </div>
@@ -216,11 +216,11 @@ export default function RegisterInfo() {
             </Label>
             <Input
               id="email"
-              type={"email"}
+              type={'email'}
               placeholder="Enter Email here"
               className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
-              {...register("email", { required: "This is required." })}
-              defaultValue={tempData?.type === "email" ? tempData?.data : ""}
+              {...register('email', { required: 'This is required.' })}
+              defaultValue={tempData?.type === 'email' ? tempData?.data : ''}
             />
             <ErrorMessage
               errors={errors}
@@ -242,11 +242,11 @@ export default function RegisterInfo() {
             </Label>
             <Input
               id="houseNumber"
-              type={"text"}
+              type={'text'}
               placeholder="Enter HouseNumber here"
               className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
-              {...register("houseNumber", {
-                required: "This is required.",
+              {...register('houseNumber', {
+                required: 'This is required.',
                 valueAsNumber: true,
               })}
             />
@@ -272,10 +272,10 @@ export default function RegisterInfo() {
             </Label>
             <Input
               id="street"
-              type={"text"}
+              type={'text'}
               placeholder="Enter Street Name"
               className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
-              {...register("streetName", { required: "This is required." })}
+              {...register('streetName', { required: 'This is required.' })}
             />
             <ErrorMessage
               errors={errors}
@@ -297,9 +297,9 @@ export default function RegisterInfo() {
             </Label>
 
             <Select
-              onValueChange={(value: "male" | "female") => {
-                setValue("gender", value);
-                trigger("gender");
+              onValueChange={(value: 'male' | 'female') => {
+                setValue('gender', value);
+                trigger('gender');
               }}
             >
               <SelectTrigger className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out">
@@ -341,8 +341,8 @@ export default function RegisterInfo() {
               disabled={states.isLoading}
               onValueChange={(value) => {
                 setSelectedState(value);
-                setValue("state", value);
-                trigger("state");
+                setValue('state', value);
+                trigger('state');
               }}
             >
               <SelectTrigger className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out">
@@ -378,8 +378,8 @@ export default function RegisterInfo() {
             <Select
               disabled={lga.isLoading}
               onValueChange={(value) => {
-                setValue("localGovernment", value);
-                trigger("localGovernment");
+                setValue('localGovernment', value);
+                trigger('localGovernment');
               }}
             >
               <SelectTrigger className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out">
@@ -415,7 +415,7 @@ export default function RegisterInfo() {
             {isSubmitting ? (
               <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              "Proceed"
+              'Proceed'
             )}
           </Button>
         </div>

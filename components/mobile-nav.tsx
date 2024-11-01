@@ -1,15 +1,15 @@
-import * as React from "react";
-import Link from "next/link";
+import * as React from 'react';
+import Link from 'next/link';
 
-import { SidebarNavItem } from "@/types";
-import { siteConfig } from "@/config/site";
-import { cn } from "@/lib/utils";
-import { useLockBody } from "@/hooks/utils/use-lock-body";
-import { Icons } from "@/components/icons";
-import Image from "next/image";
-import { Logo } from "@/assets";
-import { motion } from "framer-motion";
-import { usePathname } from "next/navigation";
+import { SidebarNavItem } from '@/types';
+import { siteConfig } from '@/config/site';
+import { cn } from '@/lib/utils';
+import { useLockBody } from '@/hooks/utils/use-lock-body';
+import { Icons } from '@/components/icons';
+import Image from 'next/image';
+import { Logo } from '@/assets';
+import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,10 +20,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { useRouter } from "next/navigation";
-import { APP_KEYS } from "@/lib/constants";
-import { removeCookie, userLogout } from "@/lib/utils";
+} from '@/components/ui/alert-dialog';
+import { useRouter } from 'next/navigation';
+import { APP_KEYS } from '@/lib/constants';
+import { removeCookie, userLogout } from '@/lib/utils';
 
 interface MobileNavProps {
   items: SidebarNavItem[];
@@ -48,14 +48,14 @@ export function MobileNav({ items, children, toggle }: MobileNavProps) {
   const router = useRouter();
 
   const logout = () => {
-    userLogout();
-    router.push("/auth/login");
+    // userLogout();
+    // router.push("/auth/login");
   };
 
   return (
     <div
       className={cn(
-        "fixed inset-0 top-16 z-50 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 shadow-md animate-in slide-in-from-bottom-80 md:hidden "
+        'fixed inset-0 top-16 z-50 grid h-[calc(100vh-4rem)] grid-flow-row auto-rows-max overflow-auto p-6 pb-32 shadow-md animate-in slide-in-from-bottom-80 md:hidden '
       )}
     >
       <div className="relative z-20 grid gap-6 rounded-md  p-4 text-popover-foreground bg-white border">
@@ -73,7 +73,7 @@ export function MobileNav({ items, children, toggle }: MobileNavProps) {
         </Link>
         <nav className="grid grid-flow-row auto-rows-max text-sm">
           {items.map((item, index) => {
-            const Icon = Icons[item.icon || "arrowRight"];
+            const Icon = Icons[item.icon || 'arrowRight'];
             return (
               item.href && (
                 <motion.div
@@ -84,16 +84,16 @@ export function MobileNav({ items, children, toggle }: MobileNavProps) {
                   variants={navItemVariants}
                 >
                   <Link
-                    href={item.disabled ? "/" : item.href}
+                    href={item.disabled ? '/' : item.href}
                     onClick={() => toggle()}
                   >
                     <span
                       className={cn(
-                        "group flex items-center px-3 py-2 text-sm text-dashboardLink font-normal hover:bg-dashboardLink-activeBg hover:text-dashboardLink-active rounded-sm",
+                        'group flex items-center px-3 py-2 text-sm text-dashboardLink font-normal hover:bg-dashboardLink-activeBg hover:text-dashboardLink-active rounded-sm',
                         path.includes(item.href)
-                          ? "bg-dashboardLink-activeBg text-dashboardLink-active "
-                          : "transparent",
-                        item.disabled && "cursor-not-allowed opacity-80"
+                          ? 'bg-dashboardLink-activeBg text-dashboardLink-active '
+                          : 'transparent',
+                        item.disabled && 'cursor-not-allowed opacity-80'
                       )}
                     >
                       <Icon className="mr-2 h-4 w-4 " />
@@ -110,13 +110,13 @@ export function MobileNav({ items, children, toggle }: MobileNavProps) {
             animate="visible"
             variants={navItemVariants}
           >
-            <Link href={"/dashboard/notifications"} onClick={() => toggle()}>
+            <Link href={'/dashboard/notifications'} onClick={() => toggle()}>
               <span
                 className={cn(
-                  "group flex items-center px-3 py-2 text-sm text-dashboardLink font-normal hover:bg-dashboardLink-activeBg hover:text-dashboardLink-active rounded-sm",
-                  path.includes("/dashboard/notifications")
-                    ? "bg-dashboardLink-activeBg text-dashboardLink-active "
-                    : "transparent"
+                  'group flex items-center px-3 py-2 text-sm text-dashboardLink font-normal hover:bg-dashboardLink-activeBg hover:text-dashboardLink-active rounded-sm',
+                  path.includes('/dashboard/notifications')
+                    ? 'bg-dashboardLink-activeBg text-dashboardLink-active '
+                    : 'transparent'
                 )}
               >
                 <Icons.bell className="mr-2 h-4 w-4 " />
@@ -152,7 +152,7 @@ export function MobileNav({ items, children, toggle }: MobileNavProps) {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: items.length * 0.1 + 0.1 }}
                 className={cn(
-                  "group flex items-center px-3 py-2 text-sm text-[#C20701] font-normal hover:bg-dashboardLink-activeBg hover:text-dashboardLink-active rounded-sm"
+                  'group flex items-center px-3 py-2 text-sm text-[#C20701] font-normal hover:bg-dashboardLink-activeBg hover:text-dashboardLink-active rounded-sm'
                 )}
               >
                 <Icons.logout className="mr-2 h-4 w-4" />

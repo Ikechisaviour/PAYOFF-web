@@ -1,20 +1,20 @@
-"use client";
-import { useState } from "react";
-import { z } from "zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ErrorMessage } from "@hookform/error-message";
-import { LoginSchema } from "@/validators/auth/login";
-import { Input } from "@/components/ui/input";
-import { Icons } from "@/components/icons";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
-import { Checkbox } from "@/components/ui/checkbox";
-import { returnError } from "@/lib/utils";
-import { useRouter } from "next/navigation";
-import { useLogin } from "@/hooks/auth/useLogin";
+'use client';
+import { useState } from 'react';
+import { z } from 'zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { ErrorMessage } from '@hookform/error-message';
+import { LoginSchema } from '@/validators/auth/login';
+import { Input } from '@/components/ui/input';
+import { Icons } from '@/components/icons';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
+import { useToast } from '@/components/ui/use-toast';
+import { Checkbox } from '@/components/ui/checkbox';
+import { returnError } from '@/lib/utils';
+import { useRouter } from 'next/navigation';
+import { useLogin } from '@/hooks/auth/useLogin';
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword((k) => !k);
@@ -34,16 +34,16 @@ export default function Login() {
       console.log({ data });
       const res = await login.mutateAsync(data);
       toast({
-        title: "Success",
+        title: 'Success',
         description: res.data?.message,
       });
 
-      router.push("/dashboard/home");
+      router.push('/dashboard/home');
     } catch (error) {
       const message = returnError(error);
       toast({
-        variant: "destructive",
-        title: "Error",
+        variant: 'destructive',
+        title: 'Error',
         description: message,
       });
     }
@@ -63,7 +63,7 @@ export default function Login() {
             type="email"
             placeholder="Enter your email"
             className="bg-transparent rounded-[8px] border border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText  font-sans placeholder:font-sans"
-            {...register("email", { required: "This is required." })}
+            {...register('email', { required: 'This is required.' })}
           />
         </div>
 
@@ -86,10 +86,10 @@ export default function Login() {
           </Label>
           <Input
             id="password"
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             placeholder="******"
             className="bg-transparent rounded-[8px] border border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
-            {...register("password", { required: "This is required." })}
+            {...register('password', { required: 'This is required.' })}
           />
 
           <button
@@ -116,13 +116,13 @@ export default function Login() {
 
         <div className="flex flex-col-reverse lg:flex-row items-center lg:justify-between my-5 text-xs lg:text-sm">
           <div className="flex items-center space-x-2 w-full mt-2 lg:mt-0 ">
-            <Checkbox id="terms" />
+            {/* <Checkbox id="terms" />
             <Label
               htmlFor="terms"
               className="text-[#344054] text-xs lg:text-sm"
             >
               Remember for 30 days
-            </Label>
+            </Label> */}
           </div>
 
           <Link
@@ -140,32 +140,32 @@ export default function Login() {
             <Button
               disabled={isSubmitting}
               type="submit"
-              className="w-full bg-primaryGreen  text-white lg:text-base text-sm  p-2 mt-5 lg:mt-0 rounded-lg cursor-pointer hover:opacity-80 hover:bg-primaryGreen ease-in "
+              className="w-full bg-green  text-white lg:text-base text-sm  p-2 mt-5 lg:mt-0 rounded-lg cursor-pointer hover:opacity-80 hover:bg-primaryGreen ease-in "
             >
               Sign In
             </Button>
           )}
         </div>
 
-        <div className="grid place-items-center mt-5 ">
+        {/* <div className="grid place-items-center mt-5 ">
           <Button
             onClick={() =>
               toast({
-                title: "Coming Soon",
+                title: 'Coming Soon',
                 description:
-                  "This option is still in development as we are working on it",
+                  'This option is still in development as we are working on it',
               })
             }
             className="bg-transparent border border-[#D0D5DD] dark:border-black dark:outline-none  dark:text-[#9A9A9A] dark:bg-black dark:hover:bg-transparent text-black hover:opacity-90 ease-in w-full "
           >
             <Icons.google className="mr-2 h-4 w-4 " /> Sign in with Google
           </Button>
-        </div>
+        </div> */}
         <h4 className="scroll-m-20 text-[#9A9A9A] text-xs lg:text-base text-center tracking-tight mt-10">
-          Don&apos;t have an account?{" "}
+          Don&apos;t have an account?{' '}
           <Link
             href="/auth/register"
-            className="scroll-m-20  tracking-tight text-primaryGreen  hover:opacity-90 ease-in"
+            className="scroll-m-20  tracking-tight text-green  hover:opacity-90 ease-in"
           >
             Sign Up
           </Link>
