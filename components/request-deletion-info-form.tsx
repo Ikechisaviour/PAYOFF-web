@@ -50,7 +50,7 @@ export default function RequestDeletionInfo() {
             <Input
               id="firstname"
               type={'text'}
-              placeholder="Enter Surname here"
+              placeholder="Enter First Name here"
               className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
             />
           </div>
@@ -74,7 +74,7 @@ export default function RequestDeletionInfo() {
             <Input
               id="lastname"
               type={'text'}
-              placeholder="Enter Surname here"
+              placeholder="Enter Last Name here"
               className="bg-transparent rounded-[8px] border focus:bg-white dark:focus:bg-transparent border-[#D0D5DD] mt-1 dark:border-gray-800 text-formText font-sans placeholder:font-sans ease-in-out"
             />
 
