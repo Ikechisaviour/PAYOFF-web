@@ -165,6 +165,10 @@ export const footerLinks: Array<Footer> = [
         title: 'contact',
         href: '/contact',
       },
+      {
+        title: 'delete account',
+        href: '/auth/data_deletion_request',
+      },
       // {
       //   title: "careers",
       //   href: "/",
