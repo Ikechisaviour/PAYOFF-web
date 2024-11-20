@@ -2,7 +2,6 @@ import * as React from 'react';
 import Link from 'next/link';
 
 import { SidebarNavItem } from '@/types';
-import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 import { useLockBody } from '@/hooks/utils/use-lock-body';
 import { Icons } from '@/components/icons';
