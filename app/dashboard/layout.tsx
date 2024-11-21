@@ -12,7 +12,7 @@ export default async function DashboardLayout({
 }: DashboardLayoutProps) {
   return (
     <div className="flex min-h-screen flex-col space-y-6 xl:mx-auto max-w-[1600px] relative">
-      <div className="grid gap-5 flex-1 md:grid-cols-[200px_1fr] bg-[#F5F5F5] xl:grid-cols-[200px_minmax(0,_1400px)]">
+      {/* <div className="grid gap-5 flex-1 md:grid-cols-[200px_1fr] bg-[#F5F5F5] xl:grid-cols-[200px_minmax(0,_1400px)]">
         <aside className="hidden w-[200px] flex-col md:flex">
           <DashboardNav
             items={dashboardConfig.sidebarNav}
@@ -32,7 +32,7 @@ export default async function DashboardLayout({
           </header>
           {children}
         </main>
-      </div>
+      </div> */}
     </div>
   );
 }
